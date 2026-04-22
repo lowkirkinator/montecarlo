@@ -3,7 +3,7 @@
 Välkommen till mitt repository för kurssammanfattningar! Här samlar jag snygga, interaktiva sammanfattningar för mina kurser.
 
 ## 🔗 Länk till hemsidan
-**[👉 Klicka här för att komma till den live-publicerade hemsidan!](https://lowkirkinator.github.io/[montecarlo]/)**
+**[👉 Klicka här för att komma till den live-publicerade hemsidan!](https://lowkirkinator.github.io/montecarlo/)**
 
 *(Glöm inte att byta ut länken ovan mot din faktiska GitHub Pages-adress).*
 
