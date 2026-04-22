@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2B Försäljning — Sammanfattning</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent1: #6c8ef0;
+    --accent2: #e07b54;
+    --accent3: #5ec4a1;
+    --accent4: #c97fe8;
+    --accent5: #f0c96c;
+    --text: #e2e8f5;
+    --muted: #8892aa;
+    --tag-bg: #1e2540;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent4));
+    border-radius: 2px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .header .sub {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* GRID LAYOUT */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin: 40px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+  .card.blue::before { background: var(--accent1); }
+  .card.orange::before { background: var(--accent2); }
+  .card.green::before { background: var(--accent3); }
+  .card.purple::before { background: var(--accent4); }
+  .card.yellow::before { background: var(--accent5); }
+
+  .card h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .card h2 .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card.blue h2 .dot { background: var(--accent1); }
+  .card.orange h2 .dot { background: var(--accent2); }
+  .card.green h2 .dot { background: var(--accent3); }
+  .card.purple h2 .dot { background: var(--accent4); }
+  .card.yellow h2 .dot { background: var(--accent5); }
+
+  /* LIST ITEMS */
+  ul.clean { list-style: none; padding: 0; }
+  ul.clean li {
+    padding: 5px 0 5px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    position: relative;
+    font-size: 13px;
+  }
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+  ul.clean li strong { color: #fff; font-weight: 600; }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.2px;
+  }
+  .tag.blue { color: var(--accent1); border-color: rgba(108,142,240,0.3); background: rgba(108,142,240,0.08); }
+  .tag.orange { color: var(--accent2); border-color: rgba(224,123,84,0.3); background: rgba(224,123,84,0.08); }
+  .tag.green { color: var(--accent3); border-color: rgba(94,196,161,0.3); background: rgba(94,196,161,0.08); }
+  .tag.purple { color: var(--accent4); border-color: rgba(201,127,232,0.3); background: rgba(201,127,232,0.08); }
+  .tag.yellow { color: var(--accent5); border-color: rgba(240,201,108,0.3); background: rgba(240,201,108,0.08); }
+
+  /* TABLE */
+  table.neat {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  table.neat th {
+    text-align: left;
+    padding: 8px 10px;
+    background: var(--surface2);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  table.neat td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.neat tr:last-child td { border-bottom: none; }
+  table.neat td strong { color: #fff; }
+
+  /* FLOW / PHASES */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 10px;
+  }
+  .flow-step {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-right: none;
+    padding: 12px;
+    position: relative;
+    font-size: 12px;
+  }
+  .flow-step:first-child { border-radius: 8px 0 0 8px; }
+  .flow-step:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid var(--border); }
+  .flow-step .step-title {
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .flow-step.blue .step-title { color: var(--accent1); }
+  .flow-step.orange .step-title { color: var(--accent2); }
+  .flow-step.green .step-title { color: var(--accent3); }
+  .flow-step.purple .step-title { color: var(--accent4); }
+  .flow-step.yellow .step-title { color: var(--accent5); }
+  .flow-step ul { list-style: none; padding: 0; }
+  .flow-step ul li { color: var(--muted); font-size: 11.5px; padding: 2px 0; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent1);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .highlight strong { color: var(--text); }
+  .highlight.orange { border-left-color: var(--accent2); }
+  .highlight.green { border-left-color: var(--accent3); }
+  .highlight.purple { border-left-color: var(--accent4); }
+
+  /* ACRONYM BLOCK */
+  .acronym { display: flex; flex-direction: column; gap: 4px; }
+  .acronym-row { display: flex; align-items: baseline; gap: 10px; font-size: 13px; }
+  .acronym-letter {
+    font-family: 'Fira Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    width: 18px;
+    flex-shrink: 0;
+    color: var(--accent1);
+  }
+  .acronym-row.orange .acronym-letter { color: var(--accent2); }
+  .acronym-row.green .acronym-letter { color: var(--accent3); }
+  .acronym-row.purple .acronym-letter { color: var(--accent4); }
+  .acronym-row.yellow .acronym-letter { color: var(--accent5); }
+
+  /* QUOTE */
+  .quote {
+    font-style: italic;
+    color: var(--muted);
+    border-left: 2px solid var(--border);
+    padding-left: 12px;
+    margin: 10px 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  /* COMPARISON */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .compare-col { background: var(--surface2); border-radius: 8px; padding: 14px; }
+  .compare-col .c-title { font-weight: 700; font-size: 12px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .compare-col.blue .c-title { color: var(--accent1); }
+  .compare-col.orange .c-title { color: var(--accent2); }
+  .compare-col ul { list-style: none; padding: 0; }
+  .compare-col ul li { font-size: 12.5px; color: var(--muted); padding: 3px 0; border-bottom: 1px solid var(--border); }
+  .compare-col ul li:last-child { border-bottom: none; }
+  .compare-col ul li::before { content: '› '; color: var(--accent3); }
+
+  /* FOOTER */
+  .footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 11px; }
+
+  @media print {
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>B2B Försäljning</h1>
+    <div class="sub">Fullständig sammanfattning · Säljprocessen & Tekniker</div>
+  </div>
+
+  <div class="section-label">F1 — B2B vs B2C & Nätverkande</div>
+
+  <div class="grid-2">
+    <div class="card blue">
+      <h2><span class="dot"></span>Vad skiljer B2B från B2C?</h2>
+      <div class="compare" style="margin-top:12px;">
+        <div class="compare-col blue">
+          <div class="c-title">B2B (Business to Business)</div>
+          <ul>
+            <li>Färre, men större kunder</li>
+            <li>Långa säljcykler</li>
+            <li>Logiska/rationella köpbeslut</li>
+            <li>Långsiktiga relationer avgörande</li>
+            <li>Flera beslutsfattare involverade</li>
+          </ul>
+        </div>
+        <div class="compare-col orange">
+          <div class="c-title">B2C (Business to Consumer)</div>
+          <ul>
+            <li>Fler, mindre kunder</li>
+            <li>Korta, direkta säljcykler</li>
+            <li>Emotionella köpbeslut</li>
+            <li>Transaktionellt fokus</li>
+            <li>Enskilda köpare oftast</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card orange">
+      <h2><span class="dot"></span>Det komplexa nätverket</h2>
+      <div class="highlight">
+        <strong>Köpgruppen (Decision Making Unit):</strong> I B2B sker sällan försäljning till en person. Det krävs att man kartlägger vem som har vilken roll.
+      </div>
+      <ul class="clean" style="margin-top:10px;">
+        <li><strong>Initiativtagare</strong> — Identifierar behovet.</li>
+        <li><strong>Användare</strong> — Kommer använda produkten/tjänsten.</li>
+        <li><strong>Påverkare</strong> — Specialister som styr krav (t.ex. IT/Säkerhet).</li>
+        <li><strong>Köpare</strong> — Den som förhandlar och tecknar avtal.</li>
+        <li><strong>Beslutsfattare</strong> — Personen med budgetansvar och veto.</li>
+        <li><strong>Grindvakter (Gatekeepers)</strong> — Styr informationsflödet till beslutsfattarna.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">F2 — Motivation & Mål</div>
+
+  <div class="grid-3">
+    <div class="card green">
+      <h2><span class="dot"></span>Inre vs Yttre Motivation</h2>
+      <ul class="clean">
+        <li><strong>Inre motivation:</strong> Drivkraft som kommer inifrån. Att göra något för att det är roligt, meningsfullt eller utmanande (ex. utveckling, problemlösning).</li>
+        <li><strong>Yttre motivation:</strong> Drivs av externa belöningar eller undvikande av straff (ex. bonusar, lön, provision, hot om uppsägning).</li>
+      </ul>
+      <div class="quote" style="margin-top:10px;">En kombination av båda är vanligast, men inre motivation skapar mest långsiktig uthållighet.</div>
+    </div>
+
+    <div class="card purple">
+      <h2><span class="dot"></span>Vrooms förväntningsteori</h2>
+      <div class="highlight purple">
+        <strong>Motivation = F × I × V</strong>
+      </div>
+      <ul class="clean" style="margin-top:10px;">
+        <li><strong>F (Förväntan):</strong> Tror jag att min ansträngning kommer leda till prestation?</li>
+        <li><strong>I (Instrumentalitet):</strong> Tror jag att prestationen leder till en specifik belöning?</li>
+        <li><strong>V (Valens):</strong> Hur mycket värderar jag belöningen?</li>
+      </ul>
+    </div>
+
+    <div class="card yellow">
+      <h2><span class="dot"></span>Målsättning — SMART(A)</h2>
+      <div class="acronym">
+        <div class="acronym-row"><span class="acronym-letter" style="color:var(--accent5)">S</span><span><strong>Specifikt:</strong> Tydligt och avgränsat</span></div>
+        <div class="acronym-row orange"><span class="acronym-letter" style="color:var(--accent2)">M</span><span><strong>Mätbart:</strong> Går det att följa upp?</span></div>
+        <div class="acronym-row green"><span class="acronym-letter" style="color:var(--accent3)">A</span><span><strong>Accepterat:</strong> Är teamet med på det?</span></div>
+        <div class="acronym-row purple"><span class="acronym-letter" style="color:var(--accent4)">R</span><span><strong>Realistiskt:</strong> Möjligt att nå?</span></div>
+        <div class="acronym-row"><span class="acronym-letter" style="color:var(--accent1)">T</span><span><strong>Tidsbundet:</strong> Har en tydlig deadline</span></div>
+        <div class="acronym-row"><span class="acronym-letter" style="color:var(--muted)">A</span><span style="color:var(--muted)"><strong>Attraktivt:</strong> Inspirerande att nå?</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">F3 — Försäljningsprocessen i 7 steg</div>
+  
+  <div class="card blue" style="margin-bottom:20px;">
+    <h2><span class="dot"></span>De 7 stegen</h2>
+    <div class="flow" style="flex-wrap: wrap;">
+      <div class="flow-step blue">
+        <div class="step-title">1. Prospektering</div>
+        <ul>
+          <li>Hitta potentiella kunder</li>
+          <li>Kvalificera leads (Budget, Auktoritet, Behov, Tid)</li>
+        </ul>
+      </div>
+      <div class="flow-step orange">
+        <div class="step-title">2. Förberedelse</div>
+        <ul>
+          <li>Research om företaget</li>
+          <li>Sätt upp mål för mötet</li>
+        </ul>
+      </div>
+      <div class="flow-step green">
+        <div class="step-title">3. Kontakt</div>
+        <ul>
+          <li>Skapa en relation (Rapport)</li>
+          <li>Väcka intresse, "Pitch"</li>
+        </ul>
+      </div>
+      <div class="flow-step purple">
+        <div class="step-title">4. Behovsanalys</div>
+        <ul>
+          <li>Kartlägga nuläge/problem</li>
+          <li>Ställa rätt frågor (SPIN)</li>
+        </ul>
+      </div>
+      <div class="flow-step yellow">
+        <div class="step-title">5. Presentation</div>
+        <ul>
+          <li>Presentera lösning baserat på identifierade behov (EFN)</li>
+        </ul>
+      </div>
+      <div class="flow-step blue">
+        <div class="step-title">6. Avslut</div>
+        <ul>
+          <li>Hantera invändningar</li>
+          <li>Stänga affären/Få ett ja</li>
+        </ul>
+      </div>
+      <div class="flow-step green">
+        <div class="step-title">7. Uppföljning</div>
+        <ul>
+          <li>Säkerställ leverans/nöjdhet</li>
+          <li>Bygg för merförsäljning</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">F4 — SPIN-modellen & Frågeteknik</div>
+
+  <div class="grid-2">
+    <div class="card green">
+      <h2><span class="dot"></span>SPIN-Frågor</h2>
+      <div class="acronym">
+        <div class="acronym-row"><span class="acronym-letter" style="color:var(--accent3)">S</span><span><strong>Situationsfrågor:</strong> Samla fakta om kundens nuvarande situation (Vem, vad, hur). *Görs med måtta.*</span></div>
+        <div class="acronym-row orange"><span class="acronym-letter" style="color:var(--accent2)">P</span><span><strong>Problemfrågor:</strong> Identifiera svårigheter eller missnöjen i nuvarande situation. Hittar *outtalade behov*.</span></div>
+        <div class="acronym-row purple"><span class="acronym-letter" style="color:var(--accent4)">I</span><span><strong>Inverkansfrågor (Implikation):</strong> Vilka konsekvenser får problemet om det inte löses? (Förstorar problemet).</span></div>
+        <div class="acronym-row blue"><span class="acronym-letter" style="color:var(--accent1)">N</span><span><strong>Nyttofrågor (Need-Payoff):</strong> Får kunden att själv sätta ord på värdet/nyttan av en lösning. Skapar *uttalade behov*.</span></div>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <h2><span class="dot"></span>EFN-Modellen (Presentation)</h2>
+      <ul class="clean">
+        <li><strong>Egenskap:</strong> Ett neutralt faktum om produkten/tjänsten. <em>("Bilen har fyrhjulsdrift.")</em></li>
+        <li><strong>Fördel:</strong> Hur egenskapen kan användas eller vad den åstadkommer rent konkret. <em>("Du får bättre väggrepp på vintern.")</em></li>
+        <li><strong>Nytta:</strong> Vilket specifikt värde detta skapar för just *denna* kund baserat på deras behov. <em>("Eftersom du ofta kör i fjällen innebär detta att du och din familj reser säkrare.")</em></li>
+      </ul>
+      <div class="highlight purple" style="margin-top:10px;">
+        Kunder köper inte egenskaper – de köper den nytta lösningen ger.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">F5 & F6 — Säljsamtalet, Invändningar & Förhandling</div>
+
+  <div class="grid-3">
+    <div class="card blue">
+      <h2><span class="dot"></span>Värdeekvationen</h2>
+      <div class="highlight">
+        <strong>Upplevt Värde = Nytta – Kostnad/Risk</strong>
+      </div>
+      <ul class="clean" style="margin-top:10px;">
+        <li>För att ett köp ska ske måste det upplevda värdet (nyttan) överstiga kostnaden och den risk kunden känner inför att byta leverantör eller system.</li>
+        <li>Priset är sällan problemet om *värdet* är tydligt definierat (Nyttofrågor).</li>
+      </ul>
+    </div>
+
+    <div class="card orange">
+      <h2><span class="dot"></span>Invändningshantering</h2>
+      <ul class="clean">
+        <li><strong>Lyssna/Klargör:</strong> Låt kunden prata till punkt. Avbryt inte. Förstå exakt vad invändningen rör.</li>
+        <li><strong>Bekräfta:</strong> Visa förståelse. <em>"Jag förstår att budget är en viktig fråga för er."</em></li>
+        <li><strong>Besvara:</strong> Ge ett tydligt, ärligt och konkret svar (eller omformulera).</li>
+        <li><strong>Kolla av:</strong> <em>"Svarade det på din fundering?"</em> För att stänga invändningen.</li>
+      </ul>
+    </div>
+
+    <div class="card yellow">
+      <h2><span class="dot"></span>BATNA & ZOPA (Förhandling)</h2>
+      <ul class="clean">
+        <li><strong>BATNA:</strong> <em>Best Alternative To a Negotiated Agreement.</em> Ditt bästa alternativ om förhandlingen spricker. (Din smärtgräns / "Walk-away" point).</li>
+        <li><strong>ZOPA:</strong> <em>Zone Of Possible Agreement.</em> Överlappningen mellan säljarens lägsta pris och köparens högsta pris. Det är i denna zon en win-win affär kan stängas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">Nyckelinsikter</div>
+  <div class="grid-2" style="margin-bottom:40px;">
+    <div class="card green">
+      <div class="quote" style="font-size:13px;">"Outtalade behov (ex. 'maskinen är lite långsam ibland') måste utvecklas till uttalade behov (ex. 'vi måste uppgradera maskinen nu, annars tappar vi 10% av intäkterna i år') för att ett stort B2B-köp ska ske. SPIN hjälper dig göra den förflyttningen."</div>
+    </div>
+    <div class="card blue">
+      <div class="quote" style="font-size:13px;">"Förhandling är inte att vinna över kunden. Det handlar om att skapa en Win-Win situation där båda parter känner att de har fått värde och lämnar bordet nöjda. Det bygger den långsiktiga relationen B2B kräver."</div>
+    </div>
+  </div>
+
+  <div class="footer">B2B Försäljning · Sammanfattning · SPIN, EFN & Processen</div>
+
+</div>
+</body>
+</html>
