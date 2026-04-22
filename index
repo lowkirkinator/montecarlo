@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komplett Frågebank: Beräkningsmetoder för Finansiell Matematik</title>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500&display=swap');
+
+        :root {
+            /* Keep all original color accents but adjust background and main text */
+            --bg-body: #0f1117; /* Dark background outside .page */
+            --page-bg: #fff; /* New white page background */
+            --text-dark: #000; /* New dark text color for content */
+            --border: #ddd; /* Lighter border for light theme */
+            --accent1: #6c8ef0; /* Blå */
+            --accent2: #e07b54; /* Orange */
+            --accent3: #5ec4a1; /* Grön */
+            --accent4: #c97fe8; /* Lila */
+            --accent5: #f0c96c; /* Gul */
+            --muted-light: #666; /* New dark muted text color */
+            --tag-bg-light: #f4f4f4; /* Lighter background for tags in light theme */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-body); /* Body background outside the main content area */
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--page-bg); /* Use the new white background */
+            border-radius: 12px;
+            padding: 60px 80px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: var(--text-dark); /* Set default dark text for the white page */
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 56px;
+            padding: 48px 0 40px;
+            border-bottom: 2px solid #333; /* Darker border in light theme */
+            position: relative;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent4));
+            border-radius: 2px;
+        }
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #000, #333); /* Dark titles on white background */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        .header .sub {
+            color: var(--muted-light); /* Darker muted text color */
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* SECTION LABEL */
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #333; /* Darker title in light theme */
+            margin: 60px 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #999; /* Darker border in light theme */
+        }
+
+        /* GRID LAYOUT */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .col-span-2 { grid-column: span 2; }
+        .col-span-3 { grid-column: span 3; }
+
+        /* CARD */
+        .card {
+            background: var(--tag-bg-light); /* Lighter background for cards on a white page */
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            border-radius: 12px 12px 0 0;
+        }
+        .card.blue::before { background: var(--accent1); }
+        .card.orange::before { background: var(--accent2); }
+        .card.green::before { background: var(--accent3); }
+        .card.purple::before { background: var(--accent4); }
+        .card.yellow::before { background: var(--accent5); }
+
+        .card h2 {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #000; /* Dark title for card */
+        }
+        .card h2 .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .card.blue h2 .dot { background: var(--accent1); }
+        .card.orange h2 .dot { background: var(--accent2); }
+        .card.green h2 .dot { background: var(--accent3); }
+        .card.purple h2 .dot { background: var(--accent4); }
+        .card.yellow h2 .dot { background: var(--accent5); }
+
+        .question-block {
+            margin-bottom: 35px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .q-header {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #000; /* Dark question title */
+        }
+        .tags {
+            font-family: "Fira Mono", monospace;
+            font-size: 12px;
+            color: var(--muted-light); /* Dark muted text */
+            margin-bottom: 12px;
+        }
+        .tag {
+            display: inline-block;
+            background: #e8e8e8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+            border: 1px solid #ccc;
+            font-size: 11px;
+            color: #555;
+        }
+        .tag.latt { border-left: 4px solid var(--accent3); }
+        .tag.medel { border-left: 4px solid var(--accent5); }
+        .tag.svar { border-left: 4px solid var(--accent2); }
+
+        p {
+            margin: 8px 0 15px 0;
+            text-align: justify;
+            color: var(--text-dark); /* Dark text for paragraphs */
+        }
+        ol, ul {
+            margin-top: 8px;
+            padding-left: 25px;
+            color: var(--text-dark); /* Dark text for lists */
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .math {
+            font-family: "Fira Mono", monospace;
+            background: #eee; /* Lighter math background in light theme */
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: block;
+            overflow-x: auto;
+            color: var(--text-dark); /* Dark text for math */
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight {
+            background: #eee; /* Lighter highlight background in light theme */
+            border-left: 3px solid var(--accent1);
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin: 10px 0;
+            font-size: 13px;
+            color: var(--text-dark); /* Dark text for highlights */
+        }
+        .highlight strong { color: #000; font-weight: 600; }
+        .highlight.orange { border-left-color: var(--accent2); }
+        .highlight.green { border-left-color: var(--accent3); }
+        .highlight.purple { border-left-color: var(--accent4); }
+
+        /* ACRONYM BLOCK */
+        .acronym { display: flex; flex-direction: column; gap: 4px; margin: 10px 0; }
+        .acronym-row { display: flex; align-items: baseline; gap: 10px; font-size: 13px; color: var(--text-dark); }
+        .acronym-letter {
+            font-family: 'Fira Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            width: 18px;
+            flex-shrink: 0;
+            color: var(--accent1);
+        }
+        .acronym-row.orange .acronym-letter { color: var(--accent2); }
+        .acronym-row.green .acronym-letter { color: var(--accent3); }
+        .acronym-row.purple .acronym-letter { color: var(--accent4); }
+        .acronym-row.yellow .acronym-letter { color: var(--accent5); }
+        .acronym-row span { color: var(--text-dark); }
+
+        /* QUOTE */
+        .quote {
+            font-style: italic;
+            color: var(--muted-light); /* Darker muted text for quote */
+            border-left: 2px solid var(--border);
+            padding-left: 12px;
+            margin: 10px 0;
+            font-size: 12.5px;
+            line-height: 1.7;
+        }
+
+        /* COMPARISON */
+        .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .compare-col { background: #eee; border-radius: 8px; padding: 14px; }
+        .compare-col .c-title { font-weight: 700; font-size: 12px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .compare-col.blue .c-title { color: var(--accent1); }
+        .compare-col.orange .c-title { color: var(--accent2); }
+        .compare-col ul { list-style: none; padding: 0; }
+        .compare-col ul li { font-size: 12.5px; color: var(--text-dark); padding: 3px 0; border-bottom: 1px solid var(--border); }
+        .compare-col ul li:last-child { border-bottom: none; }
+        .compare-col ul li::before { content: '› '; color: var(--accent3); }
+
+        /* EVM */
+        .evm-row { display: flex; gap: 8px; margin-top: 8px; }
+        .evm-box { flex: 1; background: #eee; border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border); }
+        .evm-box .evm-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-light); margin-bottom: 4px; }
+        .evm-box .evm-code { font-family: 'Fira Mono', monospace; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+        .evm-box .evm-full { font-size: 11px; color: var(--text-dark); }
+        .evm-box.blue .evm-code { color: var(--accent1); }
+        .evm-box.green .evm-code { color: var(--accent3); }
+        .evm-box.orange .evm-code { color: var(--accent2); }
+        .evm-box.purple .evm-code { color: var(--accent4); }
+
+        /* STEP BADGE */
+        .num-badge {
+            display: inline-flex;
+            width: 22px; height: 22px;
+            background: var(--accent1);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff; /* Always white number */
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+        .num-badge.orange { background: var(--accent2); }
+        .num-badge.green { background: var(--accent3); }
+        .num-badge.purple { background: var(--accent4); }
+
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+        .step-row:last-child { border-bottom: none; }
+        .step-row .step-content { flex: 1; color: var(--text-dark); }
+        .step-row .step-content strong { display: block; color: #000; font-size: 13px; margin-bottom: 2px; font-weight: 600; }
+        .step-row .step-content span { color: var(--text-dark); font-size: 12px; }
+
+        /* MULTIPROJEKT Multiprojektverksamhet & PMO */
+        .grid-3 ul li { color: var(--text-dark); }
+        .grid-3 div div { color: var(--accent5); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 6px; font-size: 11px; }
+
+        /* FOOTER */
+        .footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted-light); font-size: 11px; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .page { box-shadow: none; padding: 0; max-width: 100%; border-radius: 0; }
+            .page { page-break-after: always; }
+            .question-block { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="header">
+        <h1>Komplett Frågebank</h1>
+        <div class="sub">Beräkningsmetoder för Finansiell Matematik (Tenta & Övningsbank)</div>
+    </div>
+
+    <div class="section-label">1. Slumptalsgenerering och Sampling (Exercise 1 & Slides 1)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 1.1: Linjär Kongruensgenerator (LCG)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag latt">Lätt</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Givet sekvensen som definieras av $x_{n+1} = (ax_n + c) \mod m$, förklara matematiskt hur denna talsekvens används för att generera likformigt fördelade pseudo-slumptal i intervallet $[0,1)$. Definiera begreppen *seed*, *multiplier*, *increment* och *modulus*.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 1.2: Inversa Transform-metoden (Exponential)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Härled formeln för att generera slumptal från en exponentialfördelning med parameter $\lambda > 0$. Utgå från ett likformigt fördelat slumptal $U \sim \mathcal{U}(0,1)$ och den kumulativa fördelningsfunktionen $F(x) = 1 - e^{-\lambda x}$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 1.3: Inversa Transform-metoden (Pareto)</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Vi vill simulera extrema marknadsrörelser med en Pareto-fördelning. Täthetsfunktionen ges av $f(x) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}}$ för $x \ge x_m$. Beräkna först CDF $F(x)$, och härled sedan funktionen $x = F^{-1}(U)$ för att generera slumptalen.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 1.4: Acceptans-Rejektionsmetoden (AR)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>För att generera standardnormalfördelade slumptal genererar vi först $Y = |Z|$ med täthet $f(y) = \sqrt{\frac{2}{\pi}}e^{-y^2/2}$. Låt kandidatfördelningen vara en exponentialfördelning $g(y) = e^{-y}$. Hitta det minsta värdet på konstanten $c > 0$ så att $f(y) \le c \cdot g(y)$ för alla $y \ge 0$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 1.5: Effektivitet i AR-metoden</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>I Acceptans-rejektionsmetoden, varför strävar vi efter att minimera konstanten $c$? Bevisa, eller argumentera starkt för, att sannolikheten för acceptans i en given iteration är exakt $1/c$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 1.6: Box-Muller-transformen</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag latt">Lätt</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Enligt föreläsning 1, förklara hur Box-Muller-algoritmen transformerar två oberoende likformigt fördelade slumptal $U_1, U_2 \in (0,1]$ till två oberoende standardnormalfördelade slumptal $Z_1, Z_2$. Skriv upp de resulterande funktionerna för $Z_1$ och $Z_2$.</p>
+    </div>
+
+    <div class="section-label">2. Binomialträd (Exercise 1)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 2.1: Riskneutral sannolikhet</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Betrakta en enperiods binomialmodell. Aktiepriset vid $t=0$ är $S_0$. Räntan är $r$ och tidssteget $\Delta t = 1$. Aktien kan gå upp med en faktor $u$ eller ner med en faktor $d$. Låt utbetalningsfunktionen vara $f(S_1)$. Härled formeln för den riskneutrala sannolikheten $q = \frac{1+r-d}{u-d}$ och visa att portföljen är arbitragefri endast om $d < 1+r < u$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 2.2: Replikering och Hedging</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Anta $S_0 = 100$, $u = 1.2$, $d = 0.9$, $r = 0.05$ (5%). Beräkna priset för en europeisk säljoption (put) med lösenpris $K = 105$. Beräkna därefter exakt hur många aktier $\Phi$ du måste köpa/blanka i $t=0$ för att replikera optionen.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 2.3: Flerperiodsmodell Algoritm</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag latt">Lätt</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Ställ upp den rekursiva ekvationen (baklängesinduktion) för att prissätta en europeisk option $H = h(S_T)$ i en binomialmodell med $T$ tidssteg. Vad är det förväntade värdet $V_t(s)$ uttryckt i termer av $V_{t+1}$ och $q$?</p>
+    </div>
+
+    <div class="section-label">3. Monte Carlo & Variansreduktion (Exercise 2 & Slides 1)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 3.1: Unbiased Estimator (Mean)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag latt">Lätt</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Låt $X_1, \dots, X_M$ vara iid med $\mathbb{E}[X] = \mu$ och $\text{Var}[X] = \sigma^2$. Låt $f$ vara mätbar. Bevisa att $I_M = \frac{1}{M}\sum_{i=1}^M f(X_i)$ är en väntevärdesriktig skattare för $\mathbb{E}[f(X)]$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 3.2: Unbiased Estimator (Variance)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Utgå från villkoren ovan. Bevisa att $\sigma_M^2 = \frac{1}{M-1}\sum_{i=1}^M (f(X_i) - I_M)^2$ är en väntevärdesriktig skattare för $\text{Var}[f(X)]$. Utveckla summan algebraiskt och ta väntevärdet.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 3.3: Antithetic Variates</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Förklara idén bakom Antithetic Variates. Låt $I_A = \frac{f(U) + f(1-U)}{2}$. Härled uttrycket för variansen av $I_A$ och visa under vilket matematiskt villkor $\text{Var}(I_A) < \frac{1}{2}\text{Var}(f(U))$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 3.4: Control Variates (Optimalt $b$)</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Skattaren för Control Variates ges av $\hat{I}_{CV} = f(X) - b(g(X) - \mathbb{E}[g(X)])$. Beräkna variansen $\text{Var}[\hat{I}_{CV}]$ som en funktion av $b$. Derivera detta uttryck med avseende på $b$ för att härleda det optimala $b^*$ som minimerar variansen.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 3.5: Koksma-Hlawka Olikheten (QMC)</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag svar">Svår</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Quasi-Monte Carlo (QMC) bygger på lågdiskrepanssekvenser. Ange Koksma-Hlawka-olikheten för integrationsfelet. Förklara variablerna $V(f)$ (Hardy-Krause variation) och $D_M^*$ (Stjärndiskrepans). Hur konvergerar felet jämfört med Plain Monte Carlo $\mathcal{O}(M^{-1/2})$?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 3.6: Randomized Quasi-Monte Carlo (RQMC)</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Förklara metoden för "Random Shift" inom RQMC: $\tilde{x}_i = (x_i + U) \mod 1$. Varför introducerar man en slumpmässig vektor i en annars deterministisk sekvens?</p>
+    </div>
+
+    <div class="section-label">4. Olikheter (Inequalities.pdf)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 4.1: Markovs och Chebychevs Olikhet</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag latt">Lätt</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Markovs olikhet lyder $\mathbb{P}[X \ge c] \le \frac{\mathbb{E}[h(X)]}{h(c)}$ för en växande icke-negativ funktion $h$. Välj $h(x) = |x|^p$ och visa steg för steg hur detta leder till Chebychevs olikhet för ett allmänt moment $p$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 4.2: Jensens Olikhet & Konvexitet</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag medel">Medel</span> <span class="tag">Tillämpningsproblem</span></div>
+        <p>Jensens olikhet säger att för en konvex funktion $\phi$ gäller $\phi(\mathbb{E}[X]) \le \mathbb{E}[\phi(X)]$. Använd detta för att matematiskt bevisa att priset för en europeisk köpoption, $C = \mathbb{E}[e^{-rT}\max(S_T - K, 0)]$, är en konvex funktion av lösenpriset $K$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 4.3: Doobs Maximala Olikhet</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Låt $X_t$ vara en submartingal och $X_t^* = \sup_{0 \le s \le t} X_s$. Doobs maximala olikhet (del 1) anger $\mathbb{P}[X_t^* \ge R] \le \frac{1}{R}\mathbb{E}[X_t]$. Om $W_t$ är en standard Brownsk rörelse, bevisa att $\exp(W_t)$ är en submartingal och ställ upp Doobs olikhet för sannolikheten att $\sup_{s \le t} e^{W_s} \ge R$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 4.4: Harris Olikhet $k=1$</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Bevisa Harris olikhet: Om $f, g$ är två växande funktioner, så gäller $\mathbb{E}[f(Z)g(Z)] \ge \mathbb{E}[f(Z)]\mathbb{E}[g(Z)]$. (Ledtråd: Betrakta oberoende kopior $Z, \tilde{Z}$ och utvärdera $(f(Z) - f(\tilde{Z}))(g(Z) - g(\tilde{Z}))$).</p>
+    </div>
+
+    <div class="section-label">5. Ito-Kalkyl & Brownsk Rörelse (Exercise 3 & Slides 2)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.1: Egenskaper hos Korrelerad Brownsk Rörelse</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag latt">Lätt</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Låt $B^1_t, B^2_t$ vara oberoende Brownska rörelser. Definiera $W^1_t = B^1_t$ och $W^2_t = \rho B^1_t + \sqrt{1-\rho^2}B^2_t$. Visa att $\langle W^1, W^2 \rangle_t = \rho t$ med hjälp av linearitet hos kvadratisk variation för oberoende processer.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.2: Itos Lemma 1 (Exponentiell)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Beräkna dynamiken $dZ_t$ för processen $Z_t = \exp(\alpha W_t)$ med hjälp av Itos lemma. Identifiera drift- och diffusionstermerna.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.3: Itos Lemma 2 (Kvot och Logaritm)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Anta SDE:n $dX_t = \alpha X_t dt + \sigma X_t dW_t$. Beräkna den stokastiska differentialen för:<br> a) $Z_t = \frac{1}{X_t}$<br> b) $Y_t = \ln(X_t)$</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.4: Itos Lemma 3 (Kvadrat)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Med samma process $X_t$ som ovan, beräkna dynamiken för kvadraten $Z_t = (X_t)^2$. Vad är koefficienten framför $dt$?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.5: Martingalbevis via Integral</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Låt $\sigma(t)$ vara deterministisk och $X_t = \int_0^t \sigma(s) dW_s$. Visa att processen $M_t = \exp\left( \lambda X_t - \frac{1}{2}\lambda^2 \int_0^t \sigma^2(s) ds \right)$ är en martingal. Vilket argument används för att visa att väntevärdet av drifttermen i differentialen för $M_t$ är noll?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.6: Martingaldefinitioner</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag latt">Lätt</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Definiera formellt en martingal, submartingal och supermartingal enligt Definition 3.1.1. Vad betyder villkoret $\mathbb{E}[|M_t|] < \infty$ och varför är informationen $\mathcal{F}_s$ central?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 5.7: Levys Karaktärisering</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Ange Levys teorem för att karaktärisera en Brownsk rörelse. Om $Y_t = \int_0^t \text{sgn}(W_s)dW_s$, använda Itos isometri och Levys teorem för att bevisa att $Y_t$ de facto är en Brownsk rörelse.</p>
+    </div>
+
+    <div class="section-label">6. SDE och Numeriska Metoder (Exercise 3 & Slides 2)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 6.1: Lösning till Geometrisk Brownsk Rörelse</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Härled den explicita analytiska lösningen till SDE:n $dS_t = \mu S_t dt + \sigma S_t dW_t$ med startvärde $S_0$. Visa att lösningen log-normalfördelad.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 6.2: Ornstein-Uhlenbeck-processen (OU)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Lös SDE:n $dr_t = (b - ar_t)dt + \sigma dW_t$ explicit genom att integrera med den integrerande faktorn $e^{at}$. Bestäm därefter fördelningen för $r_t$ och visa det asymptotiska väntevärdet och variansen då $t \to \infty$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 6.3: Euler-Maruyama vs Milstein</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>För SDE:n $dX_t = a(X_t)dt + b(X_t)dW_t$, ställ upp Euler-Maruyama-schemat. Skriv sedan upp Milstein-schemat. Vilken specifik Itô-term (involverande $b'$) läggs till i Milstein, och hur påverkar detta den starka konvergensordningen $\gamma$?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 6.4: Heston-modellen (Feller-villkoret)</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>I Heston-modellen ges variansprocessen av $dv_t = \kappa(\theta - v_t)dt + \xi \sqrt{v_t}dW_t^V$. Vad är innebörden av Feller-villkoret $2\kappa\theta > \xi^2$? Om vi använder Euler-Maruyama på denna process, varför kan vi få tekniska fel, och hur löser "Full Truncation" (eller Reflected) Euler detta?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 6.5: Multi-Level Monte Carlo (MLMC)</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag svar">Svår</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Beskriv huvudidén bakom Giles MLMC. Hur utnyttjar MLMC en teleskopsumma av förväntade värden $\mathbb{E}[P_L] = \mathbb{E}[P_0] + \sum_{l=1}^L \mathbb{E}[P_l - P_{l-1}]$ för att drastiskt reducera beräkningskomplexiteten jämfört med Plain Euler Monte Carlo?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 6.6: LSMC (Longstaff-Schwartz)</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>För att prissätta Amerikanska optioner används ofta LSMC. Förklara hur baklängesinduktion och linjär (polynomiell) regression över in-the-money-stigar används för att estimera "Continuation Value".</p>
+    </div>
+
+    <div class="section-label">7. PDE-Metoder (Exercise 4 & Slides 3)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 7.1: PDE-transformation för Black-Scholes</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Den grundläggande Black-Scholes PDE:n är $\partial_t u + rS \partial_S u + \frac{1}{2}\sigma^2 S^2 \partial_{SS} u - ru = 0$. Visa explicit hur substitutionerna $x = \ln(S/K)$, $\tau = \frac{(T-t)\sigma^2}{2}$, och $u = K v(x,\tau) \exp(\dots)$ reducerar den till $\partial_\tau v = \partial_{xx} v$. Bevisa derivatareglerna (t.ex. $\partial_S = \frac{1}{S}\partial_x$).</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 7.2: PDE Randvillkor Säljoption (Put)</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag svar">Svår</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Genomför transformationen i 7.1 på utbetalningsfunktionen för en säljoption $u(T,S) = \max(K-S, 0)$. Vilket formellt startvillkor $v(x,0)$ får vi för värmeledningsekvationen? Vad går $v(x, \tau)$ mot då $x \to -\infty$?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 7.3: Theta-schemat och Stabilitet</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>När värmeledningsekvationen diskretiseras över tid definieras $\theta$-schemat som en viktning mellan tidsstegen. Formulera ekvationen för $\theta$-schemat. Vid vilka värden på $\theta$ är metoden <i>ovillkorligt stabilt</i> enligt Von Neumanns stabilitetsanalys, och vilket värde motsvarar Crank-Nicolson?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 7.4: Matrisform av Implicit FDM</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Ställ upp systemet $A \mathbf{v}^{n+1} = \mathbf{v}^n$ för det fullt implicita schemat ($\theta = 1$). Definiera matrisen $A$ i termer av $r = \frac{\Delta \tau}{\Delta x^2}$. Vilken bandstruktur (diagonaler) har matrisen $A$ och varför kan detta lösas effektivt?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 7.5: Feynman-Kac Teorem</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>Beskriv Feynman-Kac teorem. Om $u(t,x)$ satisfierar en parabolisk PDE av formen $\partial_t u + \mu(x)\partial_x u + \frac{1}{2}\sigma^2(x)\partial_{xx} u - r u = 0$ med slutvillkor $u(T,x) = f(x)$, hur kan $u(t,x)$ uttryckas probabilistiskt som ett väntevärde?</p>
+    </div>
+
+    <div class="section-label">8. Fouriermetoder och COS-metoden (Exercise 5 & Slides 4)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 8.1: Fourier för Säljoption</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag medel">Medel</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Beräkna Fouriertransformen $\hat{f}(u)$ av payoff-funktionen $f(x) = (K - e^x)^+$. Varför konvergerar inte integralen utan dämpning? Dämpa payoffen med $f_R(x) = e^{-Rx}f(x)$ och beräkna den modifierade transformen.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 8.2: Integrerbarhet för Säljoption</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>För $f_R(x) = e^{-Rx}(K - e^x)^+$ (Put-option), bestäm mängden $I$ där parametern $R$ måste ligga för att $f_R \in L^1(\mathbb{R})$. Visa varför $R < 0$ krävs genom att undersöka gränsvärdet då $x \to -\infty$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 8.3: COS-metoden och Koefficienter</div>
+        <div class="tags"><span class="tag">Original</span> <span class="tag svar">Svår</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>I COS-metoden (Exercise 5.1.3) använder man log-moneyness $s = \ln(S_0/K)$. Betrakta en Vanilla Call Option $f(x) = K(e^x - 1)^+$. Härled analytiskt den formella integralen för COS-koefficienten $H_k = \frac{2}{b-a}\int_a^b f(x)\cos\left(k\pi \frac{x-a}{b-a}\right)dx$.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 8.4: COS-seriens karaktäristiska koppling</div>
+        <div class="tags"><span class="tag">Konceptuell</span> <span class="tag medel">Medel</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>COS-metoden ersätter integraler med cosinus-serier. Förklara hur Fourier-koefficienterna $F_k$ för en okänd täthetsfunktion $f_X$ approximeras direkt utifrån den karakteristiska funktionen $\phi_X(u) = \mathbb{E}[e^{iuX}]$. (Referera till den Reella delen $\mathfrak{R}\{\dots\}$).</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 8.5: Fourier för Binär Option</div>
+        <div class="tags"><span class="tag">Modifierad</span> <span class="tag svar">Svår</span> <span class="tag">Beräkningsuppgift</span></div>
+        <p>Beräkna Fouriertransformen för en Binär Option (Cash-or-Nothing) där $f(x) = 1$ om $x > \ln(K)$ och $0$ annars. Lägg på en lämplig dämpningsparameter $R > 0$ och integrera.</p>
+    </div>
+
+    <div class="section-label">9. Mastersektion: Integrerade Koncept (Extrem Svårighetsgrad)</div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 9.1: Martingaler, Olikheter och Ito-Isometri</div>
+        <div class="tags"><span class="tag">Kombinerad</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Bevisa att för en kontinuerlig lokalt kvadratiskt integrerbar martingal $M_t = \int_0^t \sigma_s dW_s$, gäller uppskattningen $\mathbb{P}\left[ \sup_{0\le s\le t} |M_s| \ge \lambda \right] \le \frac{1}{\lambda^2} \int_0^t \mathbb{E}[\sigma_s^2] ds$. Använd först Doobs maximala olikhet för submartingalen $|M_t|^2$ och tillämpa därefter Ito's isometri på väntevärdet.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 9.2: Greeks via Feynman-Kac och Pathwise Sensitivities</div>
+        <div class="tags"><span class="tag">Kombinerad</span> <span class="tag svar">Svår</span> <span class="tag">Bevisuppgift</span></div>
+        <p>Om $V(t, S_t) = e^{-r(T-t)} \mathbb{E}^{\mathbb{Q}}[f(S_T) | S_t]$ är priset enligt Feynman-Kac för en given $S_T = S_t e^{(r-\sigma^2/2)(T-t) + \sigma \sqrt{T-t}Z}$, beräkna den analytiska derivatan $\Delta = \frac{\partial V}{\partial S_t}$ ("Pathwise Sensitivity") genom att flytta in derivatan under väntevärdesoperatorn och tillämpa kedjeregeln. Vilket antagande måste gälla för $f(x)$ för att detta ska vara giltigt?</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 9.3: FDM för Stokastisk Volatilitet (2D-PDE)</div>
+        <div class="tags"><span class="tag">Kombinerad</span> <span class="tag svar">Svår</span> <span class="tag">Förklaringsfråga</span></div>
+        <p>I Heston-modellen (två dimensioner: $S$ och $v$) leder Feynman-Kac till en 2-dimensionell parabolisk PDE. Identifiera korskombinationen i denna PDE (termen som inkluderar $\rho S v \partial_{Sv}$). Förklara varför en Explicit Euler FDM blir instabil för denna PDE vid höga värden på korrelationen $\rho$, och hur ADI-metoder (Alternating Direction Implicit) används som motåtgärd.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 9.4: Control Variates i Asiatiska Optioner</div>
+        <div class="tags"><span class="tag">Kombinerad</span> <span class="tag svar">Svår</span> <span class="tag">Tillämpningsproblem</span></div>
+        <p>En asiatisk köpoption betalar ut $\max(A - K, 0)$ där $A$ är ett aritmetiskt medelvärde. Förklara hur man i Monte Carlo kan använda en Asiatisk option baserad på ett <i>geometriskt</i> medelvärde (vars pris ofta kan beräknas stängt via Black-Scholes modifieringar) som en Control Variate. Bevisa varför kovariansen mellan dessa två utbetalningar bör vara starkt positiv.</p>
+    </div>
+
+    <div class="question-block">
+        <div class="q-header">Fråga 9.5: MLMC vs Feller-villkoret</div>
+        <div class="tags"><span class="tag">Kombinerad</span> <span class="tag svar">Svår</span> <span class="tag">Analys</span></div>
+        <p>Anta att du kör en Multi-Level Monte Carlo (MLMC) på CIR-processen (som är volatilitetsdelen i Heston). Om Feller-villkoret $2\kappa\theta > \sigma^2$ bryts med stor marginal, varför kommer variansen av diskretiseringsfelet $\text{Var}[P_l - P_{l-1}]$ på de djupaste MLMC-nivåerna att explodera om ett naivt Euler-schema används? (Referera till kvadratrotens derivata vid noll).</p>
+    </div>
+
+    <div class="footer">
+        Skapad för akademiskt bruk · Computational Finance · Tenta-Frågebank v1.0
+    </div>
+
+</div>
+
+</body>
+</html>
